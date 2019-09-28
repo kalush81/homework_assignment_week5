@@ -52,7 +52,6 @@ function getMovies(request, response, next) {
 }
 router.get("/movies", getMovies);
 
-
 function createMovie(request, response, next) {
   Movie.create(request.body)
     .then(movie => response.status(201).send(movie))
@@ -60,6 +59,14 @@ function createMovie(request, response, next) {
 }
 router.post("/movies", createMovie);
 
+function getMovieById(request, response, next) {
+  Movie.findByPk(request.params.id)
+    .then(event => {
+      response.status(201).send(event);
+    })
+    .catch(next);
+}
+router.get("/movies/:id", getMovieById);
 
 app.use(router);
 app.listen(serverPort, () => console.log(`listening on ${serverPort}`));
