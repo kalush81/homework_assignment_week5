@@ -76,5 +76,12 @@ function updateMovie(request, response, next) {
 }
 router.put("/movies/:id", updateMovie);
 
+function deleteMovie(request, response, next) {
+  Movie.destroy({ where: { id: request.params.id } })
+    .then(movie => response.send({ movie }))
+    .catch(next);
+}
+router.delete("/movies/:id", deleteMovie);
+
 app.use(router);
 app.listen(serverPort, () => console.log(`listening on ${serverPort}`));
