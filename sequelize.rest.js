@@ -68,5 +68,13 @@ function getMovieById(request, response, next) {
 }
 router.get("/movies/:id", getMovieById);
 
+function updateMovie(request, response, next) {
+  Movie.findByPk(request.params.id)
+    .then(movie => movie.update(request.body))
+    .then(movie => response.status(201).send(movie))
+    .catch(next);
+}
+router.put("/movies/:id", updateMovie);
+
 app.use(router);
 app.listen(serverPort, () => console.log(`listening on ${serverPort}`));
