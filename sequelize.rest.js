@@ -56,7 +56,7 @@ const movies = [
   }
 ];
 
-db.sync({ force: true })
+db.sync({ force: false })
   .then(() => {
     movies.map(movie => {
       const { title, yearOfRelease, synopsis } = movie;
