@@ -7,11 +7,12 @@ const router = new Router();
 
 const app = express();
 
-const serverPort = process.env.PORT || 3001;
+//local port for server initialy set on 3000
+const serverPort = process.env.PORT || 3000;
 
-//assign a password (string) to postgress and port (integer) you are using on your local machine
-const password = "secret",
-  port = 6544;
+//assign a password (string) to postgress db and port (integer) you are using on your local machine
+const password = "your_password",
+  port = 'port number for postgres';
 
 const databaseUrl =
   process.env.DATABASE_URL ||
