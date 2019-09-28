@@ -20,6 +20,7 @@ app.post('/messages', (req, res) => {
         return res.status(429).send('too many requests')
     }
     if (req.body.text) {
+        console.log(req.body.text)
         counter ++;
         return res.status(200).json({message: 'message received loud and clear'})
     } else {

@@ -1,3 +1,14 @@
+// .then(
+//   Movie.create({
+//     title: "Battlestar Galactica",
+//     yearOfRelease: 2004,
+//     synopsis: `When an old enemy, the Cylons,
+//       resurface and obliterate the 12 colonies,
+//       the crew of the aged Galactica protect a small
+//       civilian fleet - the last of humanity - as they
+//       journey toward the fabled 13th colony, Earth.`
+//   })
+// )
 const express = require("express");
 const Sequelize = require("sequelize");
 const { Router } = require("express");
@@ -8,11 +19,11 @@ const router = new Router();
 const app = express();
 
 //local port for server initialy set on 3000
-const serverPort = process.env.PORT || 3000;
+const serverPort = process.env.PORT || 3001;
 
 //assign a password (string) to postgress db and port (integer) you are using on your local machine
-const password = "your_password",
-  port = 'port number for postgres';
+const password = "secret",
+  port = 6544;
 
 const databaseUrl =
   process.env.DATABASE_URL ||
@@ -31,19 +42,38 @@ const Movie = db.define("movie", {
   synopsis: Sequelize.STRING
 });
 
-db.sync()
-  .then(
-    Movie.create({
-      title: "Battlestar Galactica",
-      yearOfRelease: 2004,
-      synopsis: `When an old enemy, the Cylons, 
-        resurface and obliterate the 12 colonies, 
-        the crew of the aged Galactica protect a small 
-        civilian fleet - the last of humanity - as they 
-        journey toward the fabled 13th colony, Earth.`
-    })
-  )
-  .then(() => console.log("database synced"))
+const movies = [
+  {
+    title: "Battlestar Galactica",
+    yearOfRelease: 2004,
+    synopsis: `When an old enemy, the Cylons,
+    resurface and obliterate the 12 colonies,
+    the crew of the aged Galactica protect a small      
+    civilian fleet - the last of humanity - as they
+    journey toward the fabled 13th colony, Earth.`
+  },
+  { 
+    title: "Lost In The Space", 
+    yearOfRelease: 2018, 
+    synopsis: `After crash-landing on an alien planet, 
+    the Robinson family fight against all odds to survive and escape, 
+    but they're surrounded by hidden dangers.` 
+  },
+  {
+    title: 'The Boy Who Harnessed The Wind',
+    yearOfRelease: 2019,
+    synopsis: `Against all the odds, a thirteen year old boy in Malawi 
+    invents an unconventional way to save his family and village from famine.`
+  }
+];
+
+db.sync({ force: true })
+  .then(() => {
+    movies.map(movie => {
+      const { title, yearOfRelease, synopsis } = movie;
+      Movie.create({ title, yearOfRelease, synopsis });
+    });
+  })
   .catch(console.error);
 
 function getMovies(request, response, next) {
