@@ -13,10 +13,15 @@ app.get("/", (req, res) => {
   res.send("test");
 });
 
-app.post('/messages', (req, res) => {
+let counter = 0;
 
+app.post('/messages', (req, res) => {
+    if(counter > 5) {
+        return res.status(429).send('too many requests')
+    }
     if (req.body.text) {
-        console.log(req.body.text)
+        counter ++;
+        console.log(req.flowing)
         return res.status(200).json({message: 'message received loud and clear'})
     } else {
         return res.status(400).send('something went wrong').end()
