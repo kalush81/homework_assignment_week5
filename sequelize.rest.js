@@ -1,14 +1,3 @@
-// .then(
-//   Movie.create({
-//     title: "Battlestar Galactica",
-//     yearOfRelease: 2004,
-//     synopsis: `When an old enemy, the Cylons,
-//       resurface and obliterate the 12 colonies,
-//       the crew of the aged Galactica protect a small
-//       civilian fleet - the last of humanity - as they
-//       journey toward the fabled 13th colony, Earth.`
-//   })
-// )
 const express = require("express");
 const Sequelize = require("sequelize");
 const { Router } = require("express");
